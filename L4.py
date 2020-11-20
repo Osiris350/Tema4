@@ -15,20 +15,20 @@ T = 100			# número de elementos
 t_final = 10	# tiempo en segundos
 t = np.linspace(0, t_final, T)
 
-# Inicialización del proceso aleatorio Z(t) con N realizaciones
+# Inicialización del proceso aleatorio W(t) con N realizaciones
 N = 15
-Z_t = np.empty((N, len(t)))	# N funciones del tiempo x(t) con T puntos
+W_t = np.empty((N, len(t)))	# N funciones del tiempo x(t) con T puntos
 
-# Creación de las muestras del proceso Z(t) (X y Y independientes) (se asigna una velocidad angular de pi)
+# Creación de las muestras del proceso W(t) (X y Y independientes) (se asigna una velocidad angular de pi)
 for i in range(N):
 	X = vaX.rvs()
 	Y = vaY.rvs()
-	z_t = X*np.cos(np.pi*t) + Y*np.sin(np.pi*t)
-	Z_t[i,:] = z_t
-	plt.plot(t, z_t)
+	w_t = X*np.cos(np.pi*t) + Y*np.sin(np.pi*t)
+	W_t[i,:] = w_t
+	plt.plot(t, w_t)
 
 # Promedio de las N realizaciones en cada instante (cada punto en t)
-P = [np.mean(Z_t[:,i]) for i in range(len(t))]
+P = [np.mean(W_t[:,i]) for i in range(len(t))]
 plt.plot(t, P, '-.', lw=6)
 
 # Se imprime la suma de P para demostrar que se llega a cero 
@@ -39,7 +39,7 @@ E = t*0
 plt.plot(t, E, '-.', lw=6)
 
 # Mostrar las realizaciones, y su promedio calculado y teórico
-plt.title('Realizaciones del proceso aleatorio $Z(t)$')
+plt.title('Realizaciones del proceso aleatorio $W(t)$')
 plt.xlabel('$t$')
 plt.ylabel('$x_i(t)$')
 plt.show()
@@ -57,7 +57,7 @@ plt.figure()
 # Cálculo de correlación para cada valor de tau
 for n in range(N):
 	for i, tau in enumerate(desplazamiento):
-		corr[n, i] = np.correlate(Z_t[n,:], np.roll(Z_t[n,:], tau))/T
+		corr[n, i] = np.correlate(W_t[n,:], np.roll(W_t[n,:], tau))/T
 	plt.plot(taus, corr[n,:])
 
 # Valor teórico de correlación
