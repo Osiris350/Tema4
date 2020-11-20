@@ -32,7 +32,7 @@ P = [np.mean(W_t[:,i]) for i in range(len(t))]
 plt.plot(t, P, '-.', lw=6)
 
 # Se imprime la suma de P para demostrar que se llega a cero 
-print(np.sum(P))
+print('La sumatoria de los promedios de las N realizaciones es: ', np.sum(P))
 
 # Graficar el resultado teórico del valor esperado
 E = t*0
